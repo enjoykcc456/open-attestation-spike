@@ -1,0 +1,32 @@
+{
+  "id": "test",
+  "name": "Long Term Visit Pass",
+  "issuedOn": "2019-05-29T00:00:00+08:00",
+  "additionalData": {
+    "user": {
+      "name": "Gordon",
+      "fin": "L1234567J",
+      "dob": "01/02/2022",
+      "sex": "male",
+      "nationality": "Malaysian"
+    }
+  },
+  "recipient": {
+    "name": "Gordon"
+  },
+  "issuers": [
+    {
+      "name": "Immigration & Checkpoints Authority",
+      "documentStore": "0x01c01c58724242b24c4b31490bBa4f5a18509D1F",
+      "identityProof": {
+        "type": "DNS-TXT",
+        "location": "sharp-purple-shrimp.sandbox.openattestation.com"
+      }
+    }
+  ],
+  "$template": {
+    "name": "red",
+    "type": "EMBEDDED_RENDERER",
+    "url": "http://localhost:3000"
+  }
+}

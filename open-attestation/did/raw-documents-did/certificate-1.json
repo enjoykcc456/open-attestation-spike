@@ -1,0 +1,24 @@
+{
+  "recipient": {
+    "name": "John Doe"
+  },
+  "$template": {
+    "name": "main",
+    "type": "EMBEDDED_RENDERER",
+    "url": "https://tutorial-renderer.openattestation.com"
+  },
+  "issuers": [
+    {
+      "id": "did:ethr:0xC5Ad70e0F6c3cd54a59314BB423fCf2932FD91cF",
+      "name": "Demo Issuer",
+      "revocation": {
+        "type": "NONE"
+      },
+      "identityProof": {
+        "type": "DNS-DID",
+        "location": "causal-coral-termite.sandbox.openattestation.com",
+        "key": "did:ethr:0xC5Ad70e0F6c3cd54a59314BB423fCf2932FD91cF#controller"
+      }
+    }
+  ]
+}

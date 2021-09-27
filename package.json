@@ -1,0 +1,26 @@
+{
+  "name": "open-cert",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js localhost 8080",
+    "dev:server": "nodemon --watch './**/*.ts' --exec 'ts-node' index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@govtechsg/document-store": "^2.2.2",
+    "@govtechsg/oa-encryption": "^1.3.3",
+    "@govtechsg/oa-verify": "^7.5.0",
+    "@govtechsg/open-attestation": "^6.0.2",
+    "@govtechsg/opencerts-verify": "^3.1.0",
+    "nodemon": "^2.0.12"
+  },
+  "devDependencies": {
+    "@types/node": "^16.7.10",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
+  }
+}

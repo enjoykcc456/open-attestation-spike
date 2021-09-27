@@ -1,0 +1,39 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "name": "d3527f2c-72c3-4db5-8c6d-b21e7f22da30:string:Long Term Visit Pass",
+    "status": "280f494c-d293-4897-9dc0-5d6b117f07fc:string:live",
+    "issuedOn": "9946ec3f-f903-4a95-a888-81536ce2a25c:string:2019-05-29T00:00:00+08:00",
+    "expireOn": "ff70ab0b-38a4-41c6-be55-759a9b452cf0:string:2025-05-29T00:00:00+08:00",
+    "recipient": {
+      "name": "0d01a808-3af5-4040-ab72-8b5ec7f7885f:string:Gordon",
+      "fin": "219d28ce-331a-4b9a-b9f5-d1e1d9392d14:string:L1234567J",
+      "dob": "cc4db365-031c-4800-b020-8ff7203e4ebc:string:2019-08-18",
+      "sex": "2608b225-3e1b-4aa5-8666-011ff4f9d8cf:string:male",
+      "nationality": "714392b4-70ad-48fe-9f54-dc4aaf16b52b:string:Malaysian"
+    },
+    "issuers": [
+      {
+        "name": "67252ec2-65ca-4861-b572-7b738b5d2337:string:Immigration & Checkpoints Authority",
+        "documentStore": "787f4967-a3c2-4357-b18e-9ac17f731b85:string:0x01c01c58724242b24c4b31490bBa4f5a18509D1F",
+        "identityProof": {
+          "type": "3f8b8d87-f433-4183-8d5e-a33b7282b2e6:string:DNS-TXT",
+          "location": "9737615f-d621-435b-89bb-5bf6c2b68373:string:unnecessary-blush-worm.sandbox.openattestation.com"
+        }
+      }
+    ],
+    "$template": {
+      "name": "a4eb838f-4f25-4702-90fe-8f14e2a62090:string:LTVP",
+      "type": "bf0d00b3-fb8f-42fd-8ef4-5ee835865336:string:EMBEDDED_RENDERER",
+      "url": "1c6cf3f1-3f44-4b8a-bc68-1171dd76475b:string:http://localhost:3000"
+    }
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "804c75ff282c5ca08e461222d64d4337777ded7827f380946df8b1ccba3134c6",
+    "proof": [
+      "576d5dd407e88f2438e89bfd6625d3d737116ca9ebdff48b02877b02f5726fe7"
+    ],
+    "merkleRoot": "1de923e3e11aa755c98003538cb8893b64cdef6976a5328db46f5e53ab9c8056"
+  }
+}

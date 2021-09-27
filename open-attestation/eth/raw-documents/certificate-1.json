@@ -1,0 +1,20 @@
+{
+  "recipient": {
+    "name": "John Doe"
+  },
+  "$template": {
+    "name": "main",
+    "type": "EMBEDDED_RENDERER",
+    "url": "https://tutorial-renderer.openattestation.com"
+  },
+  "issuers": [
+    {
+      "name": "Demo Issuer",
+      "documentStore": "0x01c01c58724242b24c4b31490bBa4f5a18509D1F",
+      "identityProof": {
+        "type": "DNS-TXT",
+        "location": "sharp-purple-shrimp.sandbox.openattestation.com"
+      }
+    }
+  ]
+}

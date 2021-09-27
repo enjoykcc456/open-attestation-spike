@@ -1,0 +1,88 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "id": "29a4a6d5-d4cd-4322-b521-94ca27f456de:string:53b75bbe",
+    "name": "548fa089-1fc4-41b1-acdd-0f10fb5c6d5e:string:Govtech Demo Certificate",
+    "description": "26b9d5c7-a3e9-4109-856e-0ccfb3696c84:string:Govtech Demo Certificate",
+    "issuedOn": "90c87a0f-f432-4e5e-8782-a2324731f232:string:2019-05-29T00:00:00+08:00",
+    "admissionDate": "b4f82006-4150-493f-a03c-70e643caba2c:string:2017-08-01T00:00:00+08:00",
+    "graduationDate": "2fd11774-4756-445c-b361-b0fcc052d921:string:2022-08-01T00:00:00+08:00",
+    "$template": {
+      "name": "0c6dadb9-aadd-4539-82b0-4680fd3e5c60:string:GOVTECH_DEMO",
+      "type": "a2964239-9dd2-4280-9b6c-61af1a0f0312:string:EMBEDDED_RENDERER",
+      "url": "a2c5d43a-af75-4fbf-be2d-75015f96da6e:string:http://localhost:3000"
+    },
+    "issuers": [
+      {
+        "name": "9512b3aa-555a-44c7-b86c-d20dbd9e0690:string:Govtech",
+        "url": "bd5c175e-429b-4308-9892-8e011294281e:string:https://tech.gov.sg",
+        "documentStore": "38985ebc-4a9c-4ca0-87be-080fe511b630:string:0x01c01c58724242b24c4b31490bBa4f5a18509D1F",
+        "identityProof": {
+          "type": "95e68f3e-533c-464c-9f14-604a30822444:string:DNS-TXT",
+          "location": "1af94688-93a5-494a-9dae-8c1d69ef4ed2:string:sharp-purple-shrimp.sandbox.openattestation.com"
+        }
+      }
+    ],
+    "recipient": {
+      "name": "aa6dc95d-fab0-4188-9071-d533578c46be:string:Your Name",
+      "nric": "abd5e7f1-765c-4956-a23f-6a595a80b11c:string:SXXXXXXXY",
+      "course": "d344ac6c-8b3e-4863-9bc3-292c6dbaf1a4:string:Govtech Demo"
+    },
+    "transcript": [
+      {
+        "name": "55f037aa-a798-463a-992a-25e6a7db9e61:string:Introduction to Programming",
+        "grade": "56f523f6-7f89-4627-9b51-7b64e409508c:string:A+",
+        "courseCredit": "fdd24bd7-2cdf-4c7d-9f7e-9bb5c03555c0:string:3",
+        "courseCode": "b0181cbc-1103-447c-a40e-286b83da2004:string:CS 1110",
+        "examinationDate": "f701303c-b131-4a52-a79b-8b71ff43c8ed:string:2017-12-01T00:00:00+08:00",
+        "semester": "ac2dfba9-894a-4508-8533-2f3bb980ffc9:string:1"
+      },
+      {
+        "name": "db0d534a-249a-47fe-98ad-cb5cf4d55fa6:string:Object Oriented Programming in Java",
+        "grade": "377e753b-0bf9-4420-9274-637e3a54cb37:string:A+",
+        "courseCredit": "a3ca2eb7-6c95-4d12-b88a-93c61a416d04:string:4",
+        "courseCode": "9c16e38a-b0dc-4066-b517-6ff01e75cf14:string:CS 2110",
+        "examinationDate": "59f717cb-e3cf-42d4-8724-1937dca46925:string:2017-12-01T00:00:00+08:00",
+        "semester": "e3ed8953-b0d2-48fa-b07d-48139f1b3131:string:1"
+      },
+      {
+        "name": "7ea566c9-36eb-4580-88c7-490a5bbbc97d:string:Microeconomics",
+        "grade": "01fa3c02-1fae-4ae0-ba21-2ee8c492606f:string:A+",
+        "courseCredit": "c4fe2f65-4405-4aee-b499-3e0376dbdfed:string:4",
+        "courseCode": "bf101161-3c63-4088-9f2a-58d9f8e12c34:string:ECON 3030",
+        "examinationDate": "59bb947a-0416-450f-9c02-4cfdd15a32db:string:2018-05-01T00:00:00+08:00",
+        "semester": "e1fb2018-f777-469e-93fe-809034005484:string:2"
+      },
+      {
+        "name": "5612ef1f-82e8-47ad-b2b8-9bfa8f4b5c6b:string:Macroeconomics",
+        "grade": "f5f5a828-a86a-4f4c-badb-fe1f44487589:string:A",
+        "courseCredit": "21ec24ed-8542-456a-a1f6-958d1c061bfb:string:4",
+        "courseCode": "61785229-908d-4701-a526-28c02adbb346:string:ECON 3040",
+        "examinationDate": "a6dcc280-4425-4f09-9efb-b2825336733c:string:2018-05-01T00:00:00+08:00",
+        "semester": "395e2497-ddee-4e6c-a404-e623b8f93a27:string:2"
+      },
+      {
+        "name": "816cd0bb-6308-41cf-ad92-fe4943e3551c:string:Econometrics",
+        "grade": "ce250992-3a62-43e3-8598-424f66a1b71c:string:A-",
+        "courseCredit": "c81e0cee-50cf-4166-b710-2f0d583a0416:string:4",
+        "courseCode": "e8b9bb10-35a1-4def-b99a-3d7a419f3f7f:string:ECON 3120",
+        "examinationDate": "b96373c1-cb78-4d8d-8298-aa920124f645:string:2018-05-01T00:00:00+08:00",
+        "semester": "c36f86f2-44e8-402d-9357-221fd9e61173:string:2"
+      }
+    ],
+    "additionalData": {
+      "merit": "0f52e57d-201c-463c-91b7-4643c0a98025:string:Y",
+      "studentId": "80f26df2-ae9f-46df-8384-101f13f83765:string:123456",
+      "transcriptId": "6a9ad8e4-f51b-48a8-9f57-977140d04710:string:001"
+    }
+  },
+  "schema": "opencerts/v2.1",
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "815a74a15a78c6ea23824f5dc5e91299a60cd44313de69de012b08d4a67324f5",
+    "proof": [
+      "6ceef1d5434d608857157ae8bb7ade14047a351bd6dafa0ace2bd8ae02db2a50"
+    ],
+    "merkleRoot": "d5b2e237892d03c6ace47bdd34766f605f088867c6269f50d85dea101d355fc0"
+  }
+}

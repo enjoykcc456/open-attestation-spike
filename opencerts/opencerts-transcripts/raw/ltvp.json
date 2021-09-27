@@ -1,0 +1,28 @@
+{
+  "name": "Long Term Visit Pass",
+  "status": "live",
+  "issuedOn": "2019-05-29T00:00:00+08:00",
+  "expireOn": "2025-05-29T00:00:00+08:00",
+  "recipient": {
+    "name": "Gordon",
+    "fin": "L1234567J",
+    "dob": "2019-08-18",
+    "sex": "male",
+    "nationality": "Malaysian"
+  },
+  "issuers": [
+    {
+      "name": "Immigration & Checkpoints Authority",
+      "documentStore": "0x01c01c58724242b24c4b31490bBa4f5a18509D1F",
+      "identityProof": {
+        "type": "DNS-TXT",
+        "location": "unnecessary-blush-worm.sandbox.openattestation.com"
+      }
+    }
+  ],
+  "$template": {
+    "name": "LTVP",
+    "type": "EMBEDDED_RENDERER",
+    "url": "http://localhost:3000"
+  }
+}

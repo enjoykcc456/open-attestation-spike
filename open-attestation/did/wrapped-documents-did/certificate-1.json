@@ -1,0 +1,33 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "recipient": {
+      "name": "7dcb512b-7a47-496c-b480-4b6fda77ac55:string:John Doe"
+    },
+    "$template": {
+      "name": "0871afa3-2831-4d34-a398-90a83249ba7a:string:main",
+      "type": "ace9f032-9505-43f3-ab13-547bb7a09752:string:EMBEDDED_RENDERER",
+      "url": "505f2fdb-5ab3-482b-abea-f3729fcaa210:string:https://tutorial-renderer.openattestation.com"
+    },
+    "issuers": [
+      {
+        "id": "f2b3705e-c804-4ad1-88e4-22b1eac896dc:string:did:ethr:0xC5Ad70e0F6c3cd54a59314BB423fCf2932FD91cF",
+        "name": "546e06a3-36e4-410d-a199-72a3f89a8051:string:Demo Issuer",
+        "revocation": {
+          "type": "9be3157c-be0f-467a-aeee-637ac1c60755:string:NONE"
+        },
+        "identityProof": {
+          "type": "26713364-9c6b-4fb8-ace8-f7922a5095e4:string:DNS-DID",
+          "location": "eccd2846-3d76-4a51-8ff5-50c362836522:string:causal-coral-termite.sandbox.openattestation.com",
+          "key": "7a7a3ab9-5c6a-4cf8-8cf5-d300d0900291:string:did:ethr:0xC5Ad70e0F6c3cd54a59314BB423fCf2932FD91cF#controller"
+        }
+      }
+    ]
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "de96582646afc720914c46be0b73b8d2d694ee766b161c00034949a2b554f230",
+    "proof": [],
+    "merkleRoot": "de96582646afc720914c46be0b73b8d2d694ee766b161c00034949a2b554f230"
+  }
+}
