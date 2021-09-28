@@ -77,7 +77,7 @@ const wrapDocuments = async (
     await fs.mkdir(saveFolderPath, { recursive: true });
   }
 
-  wrappedDocuments.forEach(async (wrappedDocument) => {
+  for (const wrappedDocument of wrappedDocuments) {
     // validate schema and verifySignaure, do something if failed
     console.log(`Is document schema valid: ${validateSchema(wrappedDocument)}`);
     console.log(
@@ -94,7 +94,7 @@ const wrapDocuments = async (
       console.log(`Writing file to ${filePath}`);
       await fs.writeFile(filePath, JSON.stringify(wrappedDocument));
     }
-  });
+  }
 
   const result: {
     wrappedDocuments: v2.WrappedDocument[];
