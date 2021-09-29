@@ -16,6 +16,7 @@
     "@govtechsg/oa-verify": "^7.5.0",
     "@govtechsg/open-attestation": "^6.0.2",
     "@govtechsg/opencerts-verify": "^3.1.0",
+    "dotenv": "^10.0.0",
     "nodemon": "^2.0.12"
   },
   "devDependencies": {

@@ -9,15 +9,15 @@
   },
   "issuers": [
     {
-      "id": "did:ethr:0xC5Ad70e0F6c3cd54a59314BB423fCf2932FD91cF",
+      "id": "did:ethr:0xC5f1FFfaAA0984c0dB6a82440b9885204eb3A482",
       "name": "Demo Issuer",
       "revocation": {
         "type": "NONE"
       },
       "identityProof": {
         "type": "DNS-DID",
-        "location": "causal-coral-termite.sandbox.openattestation.com",
-        "key": "did:ethr:0xC5Ad70e0F6c3cd54a59314BB423fCf2932FD91cF#controller"
+        "location": "amateur-red-ferret.sandbox.openattestation.com",
+        "key": "did:ethr:0xC5f1FFfaAA0984c0dB6a82440b9885204eb3A482#controller"
       }
     }
   ]

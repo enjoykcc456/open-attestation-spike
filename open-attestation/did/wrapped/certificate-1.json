@@ -1,0 +1,33 @@
+{
+  "version": "https://schema.openattestation.com/2.0/schema.json",
+  "data": {
+    "recipient": {
+      "name": "1ef747c5-a498-4244-839e-f6254a7d668b:string:John Doe"
+    },
+    "$template": {
+      "name": "bde75646-058b-4286-b46a-5e2009e96201:string:main",
+      "type": "7e1cedbe-5368-497c-86cf-810f1645c242:string:EMBEDDED_RENDERER",
+      "url": "85e745f9-32e6-413c-b17c-e0b39e73c48c:string:https://tutorial-renderer.openattestation.com"
+    },
+    "issuers": [
+      {
+        "id": "2e21770d-6936-486f-a5e7-147fc14fefa8:string:did:ethr:0xC5f1FFfaAA0984c0dB6a82440b9885204eb3A482",
+        "name": "2590c090-6ce1-4869-88bb-4564ac04e4ff:string:Demo Issuer",
+        "revocation": {
+          "type": "e257e636-9a3a-4fce-ad71-257c09482207:string:NONE"
+        },
+        "identityProof": {
+          "type": "209b57fe-b271-4d01-8d28-96f220963623:string:DNS-DID",
+          "location": "5891bec1-ab42-4648-a4e7-018a2f2eee7e:string:amateur-red-ferret.sandbox.openattestation.com",
+          "key": "c6a0ce3c-ce33-4680-a83d-644997875c7c:string:did:ethr:0xC5f1FFfaAA0984c0dB6a82440b9885204eb3A482#controller"
+        }
+      }
+    ]
+  },
+  "signature": {
+    "type": "SHA3MerkleProof",
+    "targetHash": "d6df9380b47ea9d28f39c3ba11c2e0c67ed58ece9066b2bb114c612ed01945d5",
+    "proof": [],
+    "merkleRoot": "d6df9380b47ea9d28f39c3ba11c2e0c67ed58ece9066b2bb114c612ed01945d5"
+  }
+}
