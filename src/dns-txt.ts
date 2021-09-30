@@ -5,7 +5,7 @@ import { v2 } from "@govtechsg/open-attestation";
 import {
   encryptDocument,
   issueDocuments,
-  revokeDocumentsInFolder,
+  revokeOrIssueDocumentsInFolder,
   verifyDocument,
   wrapDocuments,
 } from "../common/utils";
@@ -40,6 +40,11 @@ export const testDnsTxt = async (documentStore: UpgradableDocumentStore) => {
 
     // Revokation of documents
     // await revokeDocumentsInFolder(WRAPPED_DOCS_PATH, documentStore);
+        // await revokeOrIssueDocumentsInFolder(
+    //   WRAPPED_DOCS_PATH,
+    //   documentStore,
+    //   "issue"
+    // );
 
     // Verfication of documents
     //   const wrappedDocument: v2.WrappedDocument = JSON.parse(

@@ -8,7 +8,7 @@ import {
 } from "@govtechsg/open-attestation";
 import {
   encryptDocument,
-  revokeDocumentsInFolder,
+  revokeOrIssueDocumentsInFolder,
   signDocuments,
   verifyDocument,
   wrapDocuments,
@@ -49,7 +49,11 @@ export const testDnsDid = async (documentStore: UpgradableDocumentStore) => {
     }
 
     // Revokation of documents
-    // await revokeDocumentsInFolder(SIGNED_DOCS_PATH, documentStore);
+    await revokeOrIssueDocumentsInFolder(
+      SIGNED_DOCS_PATH,
+      documentStore,
+      "revoke"
+    );
 
     // Verfication of documents
     // const signedWrappedDocument: v2.SignedWrappedDocument = JSON.parse(

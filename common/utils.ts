@@ -201,11 +201,12 @@ export const revokeDocuments = async (
 /**
  * Consolidate all the documents' target hashes and revoke in 1 transcation
  */
-export const revokeDocumentsInFolder = async (
+export const revokeOrIssueDocumentsInFolder = async (
   folderPath: string,
-  documentStore: UpgradableDocumentStore
+  documentStore: UpgradableDocumentStore,
+  type: "issue" | "revoke"
 ) => {
-  let hashesToRevoke: string[] = [];
+  let hashes: string[] = [];
 
   const files = await fs.readdir(path.resolve(folderPath));
   console.log({ files });
@@ -215,20 +216,27 @@ export const revokeDocumentsInFolder = async (
     const data = await fs.readFile(filePath, { encoding: "utf-8" });
     const document: v2.WrappedDocument = JSON.parse(data);
     const { targetHash } = document.signature;
-    hashesToRevoke.push(`0x${targetHash}`);
+    hashes.push(`0x${targetHash}`);
   }
 
-  hashesToRevoke = Array.from<string>(new Set(hashesToRevoke));
-  if (hashesToRevoke.length < 1) {
-    console.log("No hash to revoke");
+  hashes = Array.from<string>(new Set(hashes));
+  if (hashes.length < 1) {
+    console.log(`No hash to ${type}.`);
     return;
   }
 
-  console.log({ hashesToRevoke });
-  await revokeDocuments(
-    hashesToRevoke.length === 1 ? hashesToRevoke[0] : hashesToRevoke,
-    documentStore
-  );
+  console.log({ hashes });
+  if (type === "issue") {
+    await issueDocuments(
+      hashes.length === 1 ? hashes[0] : hashes,
+      documentStore
+    );
+  } else {
+    await revokeDocuments(
+      hashes.length === 1 ? hashes[0] : hashes,
+      documentStore
+    );
+  }
 };
 
 /**
