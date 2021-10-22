@@ -6,21 +6,46 @@ import {
   DID_PUBLIC_KEY,
   EXISTING_DNS_LOCATION,
   EXISTING_DOCUMENT_STORE,
+  PAYLOAD_URL,
   PassRecipient,
   PassStatus,
   Sex,
+  VERIFICATION_URL,
 } from "../common/typing";
+import crypto from "crypto";
+import { generateEncryptionKey } from "@govtechsg/oa-encryption";
 
-const ltvpImagePath = path.resolve(__dirname, "../assets/lebron.png");
+// const ltvpImagePath = path.resolve(__dirname, "../assets/lebron.png");
+const ltvpImagePath = path.resolve(__dirname, "../assets/joey-chan.png");
 const stpImagePath = path.resolve(__dirname, "../assets/davis.png");
 
 const base64Encode = (filePath: string) => {
   return fs.readFileSync(filePath, { encoding: "base64" });
 };
 
+const getVerificationUrlQuery = () => {
+  return encodeURIComponent(
+    JSON.stringify({
+      type: "DOCUMENT",
+      payload: {
+        uri: `${PAYLOAD_URL}/${crypto.randomBytes(6).toString("hex")}`,
+        permittedActions: ["VIEW", "STORE"],
+      },
+    })
+  );
+};
+
+const getVerificationUrl = () => {
+  return `${VERIFICATION_URL}?q=${getVerificationUrlQuery()}#${encodeURIComponent(
+    JSON.stringify({
+      key: generateEncryptionKey(),
+    })
+  )}`;
+};
+
 export enum PassType {
   LTVP = "ltvp",
-  STP = "stp",
+  WP = "wp",
 }
 
 export interface Pass extends v2.OpenAttestationDocument {
@@ -29,9 +54,11 @@ export interface Pass extends v2.OpenAttestationDocument {
   issuedOn: string;
   expireOn: string;
   recipient: PassRecipient;
+  employer?: string;
+  sector?: string;
+  verificationUrl: string;
   $template: v2.TemplateObject;
 }
-
 interface GetIssuer {
   type: v2.IdentityProofType;
   name: string;
@@ -83,7 +110,10 @@ export const getPassData = (
 ): Pass => {
   let issuer: v2.Issuer;
 
-  const name = "Immigration & Checkpoints Authority";
+  const name =
+    passType === PassType.LTVP
+      ? "Immigration & Checkpoints Authority"
+      : "Ministry Of Manpower";
   const location =
     type === v2.IdentityProofType.DNSTxt
       ? EXISTING_DNS_LOCATION.DNSTXT
@@ -106,28 +136,32 @@ export const getPassData = (
     });
   }
 
-  return {
-    name:
-      passType === PassType.LTVP ? "Long Term Visit Pass" : "Short Term Pass",
+  const doc: Pass = {
+    name: passType === PassType.LTVP ? "Long Term Visit Pass" : "Work Permit",
     status: PassStatus.LIVE,
-    issuedOn: "2019-05-29T00:00:00+08:00",
-    expireOn: "2025-05-29T00:00:00+08:00",
+    issuedOn: "19 FEB 2020",
+    expireOn: "19 FEB 2025",
     recipient: {
-      name: passType === PassType.LTVP ? "Lebron" : "Davis",
-      profileImage:
-        passType === PassType.LTVP
-          ? base64Encode(ltvpImagePath)
-          : base64Encode(stpImagePath),
-      fin: "L1234567J",
-      dob: "2019-08-18",
-      sex: Sex.MALE,
-      nationality: "American",
+      name: "Joey Chan Hsiao An (Zeng Xiao An)",
+      profileImage: base64Encode(ltvpImagePath),
+      fin: "G8765456A",
+      dob: "23 MAY 1980",
+      sex: Sex.FEMALE,
+      nationality: "Indonesia",
     },
+    verificationUrl: getVerificationUrl(),
     issuers: [issuer],
     $template: {
       name: passType.toUpperCase(),
       type: v2.TemplateType.EmbeddedRenderer,
-      url: "http://localhost:3000",
+      url: "http://localhost:3010",
     },
   };
+
+  if (passType === PassType.WP) {
+    doc.employer = "123 Manufacturing Pte Ltd";
+    doc.sector = "Construction";
+  }
+
+  return doc;
 };

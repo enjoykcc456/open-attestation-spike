@@ -3,7 +3,6 @@ import path from "path";
 import { UpgradableDocumentStore } from "@govtechsg/document-store/src/contracts/UpgradableDocumentStore";
 import { v2 } from "@govtechsg/open-attestation";
 import {
-  encryptDocument,
   issueDocuments,
   revokeOrIssueDocumentsInFolder,
   verifyDocument,
@@ -22,7 +21,7 @@ const VERIFY_DOC_PATH = path.resolve(
 
 const data = [
   getPassData(v2.IdentityProofType.DNSTxt, PassType.LTVP),
-  getPassData(v2.IdentityProofType.DNSTxt, PassType.STP),
+  getPassData(v2.IdentityProofType.DNSTxt, PassType.WP),
 ];
 
 export const testDnsTxt = async (documentStore: UpgradableDocumentStore) => {
@@ -40,7 +39,7 @@ export const testDnsTxt = async (documentStore: UpgradableDocumentStore) => {
 
     // Revokation of documents
     // await revokeDocumentsInFolder(WRAPPED_DOCS_PATH, documentStore);
-        // await revokeOrIssueDocumentsInFolder(
+    // await revokeOrIssueDocumentsInFolder(
     //   WRAPPED_DOCS_PATH,
     //   documentStore,
     //   "issue"

@@ -26,7 +26,7 @@ export interface PassRecipient {
 export const privateKeyPath = "./keys/privateKey.txt";
 export const EXISTING_DNS_LOCATION = {
   DNSTXT: "wet-red-chicken.sandbox.openattestation.com",
-  DNSDID: "catholic-beige-possum.sandbox.openattestation.com",
+  DNSDID: "powerful-cyan-cattle.sandbox.openattestation.com",
 };
 export const EXISTING_DOCUMENT_STORE = {
   DNSTXT: "0x8c9460deDCBe881ddaE1681c3aa48d6eEC723160",
@@ -35,3 +35,6 @@ export const EXISTING_DOCUMENT_STORE = {
 export const WALLET_ADDRESS = "0xC5f1FFfaAA0984c0dB6a82440b9885204eb3A482";
 export const DID = `did:ethr:${WALLET_ADDRESS}`;
 export const DID_PUBLIC_KEY = `${DID}#controller`;
+
+export const VERIFICATION_URL = "http://localhost:3000/verify";
+export const PAYLOAD_URL = `https://${process.env.BUCKET_NAME}.s3.${process.env.S3_REGION}.amazonaws.com/document`;

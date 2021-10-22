@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import crypto from "crypto";
 import util from "util";
+import url from "url";
 
 import {
   v2,
@@ -10,6 +11,7 @@ import {
   verifySignature,
   SUPPORTED_SIGNING_ALGORITHM,
   signDocument,
+  getData,
 } from "@govtechsg/open-attestation";
 import {
   encryptString,
@@ -23,6 +25,41 @@ import {
 } from "@govtechsg/oa-verify";
 import { UpgradableDocumentStore } from "@govtechsg/document-store/src/contracts/UpgradableDocumentStore";
 import { Signer, providers } from "ethers";
+import { Pass } from "../sample-data/data";
+import AWS from "aws-sdk";
+
+const awsAccessId = process.env.AWS_ACCESS_ID;
+const awsAccessSecret = process.env.AWS_ACCESS_SECRET;
+const bucketName = process.env.BUCKET_NAME;
+
+let s3: AWS.S3;
+
+const initS3 = () => {
+  if (awsAccessId && awsAccessSecret) {
+    s3 = new AWS.S3({
+      credentials: {
+        accessKeyId: awsAccessId,
+        secretAccessKey: awsAccessSecret,
+      },
+    });
+  }
+};
+
+initS3();
+
+export const uploadToS3 = async (content: any, key: string) => {
+  if (bucketName) {
+    const uploadResponse = await s3
+      .upload({
+        Bucket: bucketName,
+        Key: key,
+        Body: content,
+      })
+      .promise();
+
+    console.log({ uploadResponse });
+  }
+};
 
 /**
  * Generate private key for wallet, and save to local if path provided
@@ -126,10 +163,35 @@ export const verifyDocument = async (
 /**
  * Encrypt the wrapped document
  */
-export const encryptDocument = (document: v2.WrappedDocument) => {
+export const encryptSignedPassDocuments = async (
+  documents: v2.SignedWrappedDocument<Pass>[]
+) => {
+  for (const document of documents) {
+    const { verificationUrl } = getData(document);
+    const decodedUrl = new URL(decodeURIComponent(verificationUrl));
+    const q = decodedUrl.searchParams.get("q");
+    if (q) {
+      const {
+        payload: { uri },
+      } = JSON.parse(q);
+
+      const { key } = JSON.parse(
+        decodeURIComponent(decodedUrl.hash.replace("#", ""))
+      );
+      console.log({ uri, key });
+
+      const encryptedDocument = encryptString(JSON.stringify(document), key);
+      const { key: removed, ...remaining } = encryptedDocument;
+      await uploadToS3(
+        JSON.stringify(remaining),
+        new URL(uri).pathname.replace("/", "")
+      );
+    }
+  }
+
   // before passing the ciphertext, remove the key
-  const encryptedDocument = encryptString(JSON.stringify(document));
-  console.log(encryptedDocument);
+  // const encryptedDocument = encryptString(JSON.stringify(document), key);
+  // console.log(encryptedDocument);
 };
 
 /**
@@ -138,7 +200,7 @@ export const encryptDocument = (document: v2.WrappedDocument) => {
 export const decryptDocument = (encryptedResults: IEncryptionResults) => {
   // remember to put back the key before decrypting
   const decryptedDocument = decryptString(encryptedResults);
-  console.log(JSON.parse(decryptedDocument));
+  return JSON.parse(decryptedDocument);
 };
 
 /**
@@ -247,6 +309,8 @@ export const signDocuments = async (
   signer: Signer,
   saveFolderPath = ""
 ) => {
+  const signedDocuments: v2.SignedWrappedDocument[] = [];
+
   if (saveFolderPath) {
     await fs.mkdir(saveFolderPath, { recursive: true });
   }
@@ -265,6 +329,8 @@ export const signDocuments = async (
       );
       console.log(`Writing file to ${filePath}`);
       await fs.writeFile(filePath, JSON.stringify(signedDocument));
+      signedDocuments.push(signedDocument);
     }
   }
+  return signedDocuments;
 };

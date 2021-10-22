@@ -7,7 +7,7 @@ import { EXISTING_DOCUMENT_STORE, privateKeyPath } from "./common/typing";
 import { testDnsTxt } from "./src/dns-txt";
 import { UpgradableDocumentStore } from "@govtechsg/document-store/src/contracts/UpgradableDocumentStore";
 import { connect } from "@govtechsg/document-store";
-import { generatePrivateKey } from "./common/utils";
+import { decryptDocument, generatePrivateKey } from "./common/utils";
 import { testDnsDid } from "./src/dns-did";
 
 const main = async () => {
@@ -39,6 +39,18 @@ const main = async () => {
 
   // await testDnsTxt(documentStore);
   await testDnsDid(documentStore);
+
+  /**
+   * Test decrypting health cert and save into json file
+   */
+  // const data = await fs.readFile("./sample-data/encrypted-health-cert.txt", {
+  //   encoding: "utf-8",
+  // });
+  // const encrypted = JSON.parse(data);
+  // encrypted.key =
+  //   "1a5e93f0c02c8dbbfc27f3d979d582ae7134bffbfd71e71917ce269f796f5044";
+  // const decrypted = decryptDocument(encrypted);
+  // await fs.writeFile("./sample-data/decrypted-health-cert.json", decrypted);
 };
 
 // generatePrivateKey()
