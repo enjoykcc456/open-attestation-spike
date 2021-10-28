@@ -334,3 +334,48 @@ export const signDocuments = async (
   }
   return signedDocuments;
 };
+
+/**
+ * Convert the date to custom ISO string
+ */
+export const convertToCustomISO = (date: Date) => {
+  const tzoffset = date.getTimezoneOffset() * 60000; //offset in milliseconds
+  return new Date(date.getTime() - tzoffset).toISOString().slice(0, -1);
+};
+
+interface DateAdditionOptions {
+  year?: number;
+  month?: number;
+  day?: number;
+  hour?: number;
+  minute?: number;
+  second?: number;
+  millisecond?: number;
+}
+
+/**
+ * Additional on top of given date
+ */
+export const addToDate = (
+  currentDate: Date,
+  {
+    year = 0,
+    month = 0,
+    day = 0,
+    hour = 0,
+    minute = 0,
+    second = 0,
+    millisecond = 0,
+  }: DateAdditionOptions
+) => {
+  const newDate = new Date(currentDate);
+  year && newDate.setFullYear(newDate.getFullYear() + year);
+  month && newDate.setMonth(newDate.getMonth() + month);
+  day && newDate.setDate(newDate.getDate() + day);
+  hour && newDate.setHours(newDate.getHours() + hour);
+  minute && newDate.setMinutes(newDate.getMinutes() + minute);
+  second && newDate.setSeconds(newDate.getSeconds() + second);
+  millisecond &&
+    newDate.setMilliseconds(newDate.getMilliseconds() + millisecond);
+  return newDate;
+};

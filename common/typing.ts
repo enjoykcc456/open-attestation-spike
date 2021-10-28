@@ -26,7 +26,7 @@ export interface PassRecipient {
 export const privateKeyPath = "./keys/privateKey.txt";
 export const EXISTING_DNS_LOCATION = {
   DNSTXT: "wet-red-chicken.sandbox.openattestation.com",
-  DNSDID: "powerful-cyan-cattle.sandbox.openattestation.com",
+  DNSDID: "strict-amaranth-dog.sandbox.openattestation.com",
 };
 export const EXISTING_DOCUMENT_STORE = {
   DNSTXT: "0x8c9460deDCBe881ddaE1681c3aa48d6eEC723160",

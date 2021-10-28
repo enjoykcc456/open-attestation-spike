@@ -14,6 +14,7 @@ import {
 } from "../common/typing";
 import crypto from "crypto";
 import { generateEncryptionKey } from "@govtechsg/oa-encryption";
+import { addToDate, convertToCustomISO } from "../common/utils";
 
 // const ltvpImagePath = path.resolve(__dirname, "../assets/lebron.png");
 const ltvpImagePath = path.resolve(__dirname, "../assets/joey-chan.png");
@@ -136,16 +137,18 @@ export const getPassData = (
     });
   }
 
+  const issueDate = new Date();
+
   const doc: Pass = {
     name: passType === PassType.LTVP ? "Long Term Visit Pass" : "Work Permit",
     status: PassStatus.LIVE,
-    issuedOn: "19 FEB 2020",
-    expireOn: "19 FEB 2025",
+    issuedOn: convertToCustomISO(issueDate),
+    expireOn: convertToCustomISO(addToDate(issueDate, { year: 5 })),
     recipient: {
       name: "Joey Chan Hsiao An (Zeng Xiao An)",
       profileImage: base64Encode(ltvpImagePath),
       fin: "G8765456A",
-      dob: "23 MAY 1980",
+      dob: convertToCustomISO(new Date(1995, 8, 18)),
       sex: Sex.FEMALE,
       nationality: "Indonesia",
     },
