@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:server": "nodemon --watch './**/*.ts' --exec 'ts-node' index.ts",
+    "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,6 +16,7 @@
     "@govtechsg/open-attestation": "^6.0.2",
     "@govtechsg/opencerts-verify": "^3.1.0",
     "aws-sdk": "^2.1012.0",
+    "crypto": "^1.0.1",
     "dotenv": "^10.0.0",
     "nodemon": "^2.0.12"
   },

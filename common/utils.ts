@@ -2,7 +2,6 @@ import { promises as fs } from "fs";
 import path from "path";
 import crypto from "crypto";
 import util from "util";
-import url from "url";
 
 import {
   v2,
@@ -27,6 +26,7 @@ import { UpgradableDocumentStore } from "@govtechsg/document-store/src/contracts
 import { Signer, providers } from "ethers";
 import { Pass } from "../sample-data/data";
 import AWS from "aws-sdk";
+import { encryptDataWithPasswordWithScrypt } from "./encryption";
 
 const awsAccessId = process.env.AWS_ACCESS_ID;
 const awsAccessSecret = process.env.AWS_ACCESS_SECRET;
@@ -167,7 +167,7 @@ export const encryptSignedPassDocuments = async (
   documents: v2.SignedWrappedDocument<Pass>[]
 ) => {
   for (const document of documents) {
-    const { verificationUrl } = getData(document);
+    const { verificationUrl, recipient } = getData(document);
     const decodedUrl = new URL(decodeURIComponent(verificationUrl));
     const q = decodedUrl.searchParams.get("q");
     if (q) {
@@ -182,16 +182,18 @@ export const encryptSignedPassDocuments = async (
 
       const encryptedDocument = encryptString(JSON.stringify(document), key);
       const { key: removed, ...remaining } = encryptedDocument;
+
+      const result = await encryptDataWithPasswordWithScrypt(
+        "password",
+        JSON.stringify(remaining)
+      );
+
       await uploadToS3(
-        JSON.stringify(remaining),
+        JSON.stringify(result),
         new URL(uri).pathname.replace("/", "")
       );
     }
   }
-
-  // before passing the ciphertext, remove the key
-  // const encryptedDocument = encryptString(JSON.stringify(document), key);
-  // console.log(encryptedDocument);
 };
 
 /**

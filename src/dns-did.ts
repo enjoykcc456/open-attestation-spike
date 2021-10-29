@@ -31,7 +31,7 @@ const VERIFY_DOC_PATH = path.resolve(
 
 const data = [
   getPassData(v2.IdentityProofType.DNSDid, PassType.LTVP),
-  getPassData(v2.IdentityProofType.DNSDid, PassType.WP),
+  // getPassData(v2.IdentityProofType.DNSDid, PassType.WP),
 ];
 
 export const testDnsDid = async (documentStore: UpgradableDocumentStore) => {

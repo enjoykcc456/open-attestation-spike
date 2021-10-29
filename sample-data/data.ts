@@ -18,7 +18,6 @@ import { addToDate, convertToCustomISO } from "../common/utils";
 
 // const ltvpImagePath = path.resolve(__dirname, "../assets/lebron.png");
 const ltvpImagePath = path.resolve(__dirname, "../assets/joey-chan.png");
-const stpImagePath = path.resolve(__dirname, "../assets/davis.png");
 
 const base64Encode = (filePath: string) => {
   return fs.readFileSync(filePath, { encoding: "base64" });

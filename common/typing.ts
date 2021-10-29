@@ -1,3 +1,5 @@
+import { CipherGCMTypes, CipherCCMTypes } from "crypto";
+
 // =============================================================================
 // Typings
 // =============================================================================
@@ -20,13 +22,21 @@ export interface PassRecipient {
   nationality: string;
 }
 
+export interface EncryptionConfig {
+  algorithm: CipherCCMTypes | CipherGCMTypes;
+  dkLen: number;
+  N: number;
+  r: number;
+  p: number;
+}
+
 // =============================================================================
 // Constants
 // =============================================================================
 export const privateKeyPath = "./keys/privateKey.txt";
 export const EXISTING_DNS_LOCATION = {
   DNSTXT: "wet-red-chicken.sandbox.openattestation.com",
-  DNSDID: "strict-amaranth-dog.sandbox.openattestation.com",
+  DNSDID: "common-turquoise-leopon.sandbox.openattestation.com",
 };
 export const EXISTING_DOCUMENT_STORE = {
   DNSTXT: "0x8c9460deDCBe881ddaE1681c3aa48d6eEC723160",
@@ -38,3 +48,11 @@ export const DID_PUBLIC_KEY = `${DID}#controller`;
 
 export const VERIFICATION_URL = "http://localhost:3000/verify";
 export const PAYLOAD_URL = `https://${process.env.BUCKET_NAME}.s3.${process.env.S3_REGION}.amazonaws.com/document`;
+
+export const ENCRYPTION_CONFIG: EncryptionConfig = {
+  algorithm: "aes-256-gcm",
+  dkLen: 32,
+  N: 1024,
+  r: 8,
+  p: 1,
+};
