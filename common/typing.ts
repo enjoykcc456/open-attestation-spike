@@ -36,7 +36,8 @@ export interface EncryptionConfig {
 export const privateKeyPath = "./keys/privateKey.txt";
 export const EXISTING_DNS_LOCATION = {
   DNSTXT: "wet-red-chicken.sandbox.openattestation.com",
-  DNSDID: "common-turquoise-leopon.sandbox.openattestation.com",
+  DNSDID: "light-amaranth-snake.sandbox.openattestation.com",
+  DNSDID2: "right-azure-marsupial.sandbox.openattestation.com",
 };
 export const EXISTING_DOCUMENT_STORE = {
   DNSTXT: "0x8c9460deDCBe881ddaE1681c3aa48d6eEC723160",

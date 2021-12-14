@@ -27,6 +27,7 @@ import { Signer, providers } from "ethers";
 import { Pass } from "../sample-data/data";
 import AWS from "aws-sdk";
 import { encryptDataWithPasswordWithScrypt } from "./encryption";
+import { PassStatus } from "./typing";
 
 const awsAccessId = process.env.AWS_ACCESS_ID;
 const awsAccessSecret = process.env.AWS_ACCESS_SECRET;
@@ -161,23 +162,36 @@ export const verifyDocument = async (
 };
 
 /**
+ * Retrieve uri and key from verificationUrl
+ */
+export const getVerificationUrlComponents = (
+  document: v2.SignedWrappedDocument<Pass>
+) => {
+  const { verificationUrl, recipient } = getData(document);
+  const decodedUrl = new URL(decodeURIComponent(verificationUrl));
+  const q = decodedUrl.searchParams.get("q");
+  if (q) {
+    const {
+      payload: { uri },
+    } = JSON.parse(q);
+
+    const { key } = JSON.parse(
+      decodeURIComponent(decodedUrl.hash.replace("#", ""))
+    );
+    return { uri, key };
+  }
+};
+
+/**
  * Encrypt the wrapped document
  */
 export const encryptSignedPassDocuments = async (
   documents: v2.SignedWrappedDocument<Pass>[]
 ) => {
   for (const document of documents) {
-    const { verificationUrl, recipient } = getData(document);
-    const decodedUrl = new URL(decodeURIComponent(verificationUrl));
-    const q = decodedUrl.searchParams.get("q");
-    if (q) {
-      const {
-        payload: { uri },
-      } = JSON.parse(q);
-
-      const { key } = JSON.parse(
-        decodeURIComponent(decodedUrl.hash.replace("#", ""))
-      );
+    const components = getVerificationUrlComponents(document);
+    if (components) {
+      const { uri, key } = components;
       console.log({ uri, key });
 
       const encryptedDocument = encryptString(JSON.stringify(document), key);
@@ -380,4 +394,66 @@ export const addToDate = (
   millisecond &&
     newDate.setMilliseconds(newDate.getMilliseconds() + millisecond);
   return newDate;
+};
+
+/**
+ * Test updating fields in oa files
+ * 1. Read signed oa file
+ * 2. Get the data, make necessary field changes and create a new oa file
+ * 3. Replace the oa file in the public S3
+ * 4. Remove the old oa file
+ */
+const UPDATED_WRAPPED_DOCS_PATH = path.resolve(
+  __dirname,
+  "../sample-data/dns-did/updated-wrapped"
+);
+
+const UPDATED_SIGNED_DOCS_PATH = path.resolve(
+  __dirname,
+  "../sample-data/dns-did/updated-signed"
+);
+
+export const updateOA = async (
+  folderPath: string,
+  documentStore: UpgradableDocumentStore
+) => {
+  const files = await fs.readdir(path.resolve(folderPath));
+  console.log({ files });
+
+  for (const file of files) {
+    const filePath = path.resolve(folderPath, file);
+
+    // this step will be as reading the signed doc from backend s3 bucket (not public s3)
+    const fileData = await fs.readFile(filePath, { encoding: "utf-8" });
+    const document: v2.SignedWrappedDocument<Pass> = JSON.parse(fileData);
+    const data = getData(document);
+
+    // update the necessary document data (only updating pass status in this case)
+    data.status = PassStatus.DEAD;
+
+    // creating a new wrapped document with updated data
+    const { wrappedDocuments, merkleRoot } = await wrapDocuments(
+      [data],
+      UPDATED_WRAPPED_DOCS_PATH
+    );
+
+    // sign the newly wrapped documents, re-encrypt the signed documents and
+    // re-upload with the same key to replace the existing one in the public s3
+    if (wrappedDocuments.length > 0 && merkleRoot) {
+      const { signer } = documentStore;
+      console.log(signer);
+
+      // after creating a new signed document, replace the old document in backend s3,
+      // and update revocation store hash accordingly
+      const signedDocuments = await signDocuments(
+        wrappedDocuments,
+        signer,
+        UPDATED_SIGNED_DOCS_PATH
+      );
+
+      await encryptSignedPassDocuments(
+        signedDocuments as v2.SignedWrappedDocument<Pass>[]
+      );
+    }
+  }
 };

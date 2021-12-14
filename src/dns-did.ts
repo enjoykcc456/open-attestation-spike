@@ -10,6 +10,7 @@ import {
   encryptSignedPassDocuments,
   revokeOrIssueDocumentsInFolder,
   signDocuments,
+  updateOA,
   verifyDocument,
   wrapDocuments,
 } from "../common/utils";
@@ -31,7 +32,7 @@ const VERIFY_DOC_PATH = path.resolve(
 
 const data = [
   getPassData(v2.IdentityProofType.DNSDid, PassType.LTVP),
-  // getPassData(v2.IdentityProofType.DNSDid, PassType.WP),
+  // getPassData(v2.IdentityProofType.DNSDid, PassType.LTVP),
 ];
 
 export const testDnsDid = async (documentStore: UpgradableDocumentStore) => {
@@ -59,6 +60,11 @@ export const testDnsDid = async (documentStore: UpgradableDocumentStore) => {
         signedDocuments as v2.SignedWrappedDocument<Pass>[]
       );
     }
+
+    /**
+     * Test updating fields in oa files
+     */
+    // await updateOA(SIGNED_DOCS_PATH, documentStore);
 
     /**
      * Revokation of documents
