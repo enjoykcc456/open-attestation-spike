@@ -1,5 +1,6 @@
 import { v2 } from "@govtechsg/open-attestation";
 import fs from "fs";
+import { v4 as uuid } from "uuid";
 import path from "path";
 import {
   DID,
@@ -11,6 +12,8 @@ import {
   PassStatus,
   Sex,
   VERIFICATION_URL,
+  OCSP_VERIFICATION_URL,
+  RENDERER_URL,
 } from "../common/typing";
 import crypto from "crypto";
 import { generateEncryptionKey } from "@govtechsg/oa-encryption";
@@ -49,6 +52,7 @@ export enum PassType {
 }
 
 export interface Pass extends v2.OpenAttestationDocument {
+  id: string;
   name: string;
   status: PassStatus;
   issuedOn: string;
@@ -92,7 +96,7 @@ export const getIssuer = ({
       id,
       name,
       revocation: {
-        type: v2.RevocationType.RevocationStore,
+        type: v2.RevocationType.OcspResponder,
         location: revocationLocation,
       },
       identityProof: {
@@ -132,13 +136,14 @@ export const getPassData = (
       location,
       id: DID,
       key: DID_PUBLIC_KEY,
-      revocationLocation: documentStore,
+      revocationLocation: OCSP_VERIFICATION_URL,
     });
   }
 
   const issueDate = new Date();
 
   const doc: Pass = {
+    id: uuid(),
     name: passType === PassType.LTVP ? "Long Term Visit Pass" : "Work Permit",
     status: PassStatus.LIVE,
     issuedOn: convertToCustomISO(issueDate),
@@ -156,7 +161,7 @@ export const getPassData = (
     $template: {
       name: passType.toUpperCase(),
       type: v2.TemplateType.EmbeddedRenderer,
-      url: "http://localhost:3010",
+      url: RENDERER_URL,
     },
   };
 

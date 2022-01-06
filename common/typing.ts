@@ -36,8 +36,7 @@ export interface EncryptionConfig {
 export const privateKeyPath = "./keys/privateKey.txt";
 export const EXISTING_DNS_LOCATION = {
   DNSTXT: "wet-red-chicken.sandbox.openattestation.com",
-  DNSDID: "light-amaranth-snake.sandbox.openattestation.com",
-  DNSDID2: "right-azure-marsupial.sandbox.openattestation.com",
+  DNSDID: "dev.file.gov.sg",
 };
 export const EXISTING_DOCUMENT_STORE = {
   DNSTXT: "0x8c9460deDCBe881ddaE1681c3aa48d6eEC723160",
@@ -47,8 +46,11 @@ export const WALLET_ADDRESS = "0xC5f1FFfaAA0984c0dB6a82440b9885204eb3A482";
 export const DID = `did:ethr:${WALLET_ADDRESS}`;
 export const DID_PUBLIC_KEY = `${DID}#controller`;
 
-export const VERIFICATION_URL = "http://localhost:3000/verify";
-export const PAYLOAD_URL = `https://${process.env.BUCKET_NAME}.s3.${process.env.S3_REGION}.amazonaws.com/document`;
+export const VERIFICATION_URL = "https://www.dev.file.gov.sg/verify"; // http://localhost:3000/verify
+export const OCSP_VERIFICATION_URL =
+  "https://www.dev.file.gov.sg/core/open-attestation/revocation"; // http://localhost:3002/core/open-attestation/revocation
+export const PAYLOAD_URL = `https://${process.env.BUCKET_NAME}.s3.${process.env.S3_REGION}.amazonaws.com/document`; // TODO: Change to filesg static file document bucket
+export const RENDERER_URL = "https://renderer.dev.file.gov.sg/"; // http://localhost:3010
 
 export const ENCRYPTION_CONFIG: EncryptionConfig = {
   algorithm: "aes-256-gcm",

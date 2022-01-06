@@ -5,6 +5,7 @@ import {
   v2,
   signDocument,
   SUPPORTED_SIGNING_ALGORITHM,
+  wrapDocument,
 } from "@govtechsg/open-attestation";
 import {
   encryptSignedPassDocuments,
@@ -30,10 +31,7 @@ const VERIFY_DOC_PATH = path.resolve(
   "../sample-data/dns-did/signed/99626f04b4cf.json"
 );
 
-const data = [
-  getPassData(v2.IdentityProofType.DNSDid, PassType.LTVP),
-  // getPassData(v2.IdentityProofType.DNSDid, PassType.LTVP),
-];
+const data = [getPassData(v2.IdentityProofType.DNSDid, PassType.LTVP)];
 
 export const testDnsDid = async (documentStore: UpgradableDocumentStore) => {
   try {
